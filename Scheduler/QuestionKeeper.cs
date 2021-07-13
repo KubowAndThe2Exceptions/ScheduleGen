@@ -6,19 +6,29 @@ using System.Threading.Tasks;
 
 namespace Scheduler
 {
-    public class QuestionKeeper
+    class QuestionKeeper
     {
-        public List<Question> questionsList { get; private set; }
+        public List<QuestionCouple> QuestionCouples { get; private set; }
 
         public QuestionKeeper()
         {
-            questionsList = new List<Question>
+            QuestionCouples = new List<QuestionCouple>
             {
-                new Question(false, "1. Please enter when you go to bed (hh/mm, military)"),
-                new Question(true, "2. Please enter how many hours you sleep (hh/mm, military"),
-                new Question(false, "3. Please enter the time of day you eat breakfast (hh/mm, military)"),
-                new Question(false, "4. Please enter the time of day you eat lunch (hh/mm, military)"),
-                new Question(false, "5. Please enter the time of day you eat dinner (hh/mm, military")
+                new QuestionCouple
+                (new Question(false, "Please enter when you go to bed (hh/mm, military)"),
+                new Question(true, "Please enter how long you sleep (hh/mm, military)")),
+
+                new QuestionCouple
+                (new Question(false, "Please enter the time of day you eat breakfast (hh/mm, military)"),
+                new Question(true, "Please enter how long you eat breakfast (hh/mm, military)")),
+
+                new QuestionCouple
+                (new Question(false, "Please enter the time of day you eat lunch (hh/mm, military)"),
+                new Question(true, "Please enter how long you eat lunch (hh/mm, military)")),
+
+                new QuestionCouple
+                (new Question(false, "Please enter the time of day you eat dinner (hh/mm, military)"),
+                new Question(true, "Please enter how long you eat dinner (hh/mm, military)"))
             };
         }
     }

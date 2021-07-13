@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Scheduler
 {
-    public class Question
+    class Question
     {
-        public bool isInt { get; set; }
-        public string questionContent { get; set; }
+        public bool IsTimeSpan { get; set; }
+        public string QuestionContent { get; set; }
 
-        public Question(bool isAnInt, string qCon)
+        public Question(bool isTimeSpan, string questionContent)
         {
-            isInt = isAnInt;
-            questionContent = qCon;
+            IsTimeSpan = isTimeSpan;
+            QuestionContent = questionContent;
         }
     }
 }

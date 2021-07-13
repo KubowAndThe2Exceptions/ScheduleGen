@@ -7,17 +7,17 @@ using System.IO;
 
 namespace Scheduler
 {
-    public class MenuHandler
+    class MenuHandler
 
     {
         //RESOLVED: Make a question list instead with question class.  Refer to line 32 for info.
-        public List<Question> questions;
-        public ScheduleGenerator scheduler;
+        public List<Question> Questions;
+        public ScheduleGenerator Scheduler;
 
         public MenuHandler()
         {
             var questionKeeper = new QuestionKeeper();
-            questions = questionKeeper.questionsList;
+            Questions = questionKeeper.QuestionsList;
         }
 
         public void GreetingPrompt()
@@ -35,11 +35,11 @@ namespace Scheduler
             var userTimes = new List<DateTime>();
             var userHowLongs = new List<TimeSpan>();
             var i = 0;
-            while (i < questions.Count)
+            while (i < Questions.Count)
             {
                 GreetingPrompt();
-                Console.WriteLine(questions[i].questionContent);
-                if (questions[i].isInt)
+                Console.WriteLine(Questions[i].QuestionContent);
+                if (Questions[i].IsInt)
                 {
                     try
                     {
@@ -70,7 +70,7 @@ namespace Scheduler
                 }
 
             }
-            scheduler.SetLists(userTimes, userHowLongs);
+            Scheduler.SetLists(userTimes, userHowLongs);
 
         }
     }
