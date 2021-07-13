@@ -27,7 +27,7 @@ namespace Scheduler
         }
 
         public void Questionairre()
-        //{
+        {
             //RESOLVED: Add support for timespans in this list, schedulegenerator should have a timespan list.
             //RESOLVED: Possibly create question class that includes isInt and a questionContent field?
             //RESOLVED: Remake this method handle a bool "isInt", and convert accordingly before placing in DateTime or TimeSpan
