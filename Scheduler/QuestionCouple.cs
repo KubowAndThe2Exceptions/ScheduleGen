@@ -16,5 +16,9 @@ namespace Scheduler
             _coupleOfQuestions.Add(whenQ);
             _coupleOfQuestions.Add(howLongQ);
         }
+        public void Ask(int index)
+        {
+            _coupleOfQuestions[index].Ask();
+        }
     }
 }

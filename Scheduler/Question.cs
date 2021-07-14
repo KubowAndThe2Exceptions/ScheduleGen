@@ -16,5 +16,10 @@ namespace Scheduler
             IsTimeSpan = isTimeSpan;
             QuestionContent = questionContent;
         }
+
+        public void Ask()
+        {
+            Console.WriteLine(QuestionContent);
+        }
     }
 }

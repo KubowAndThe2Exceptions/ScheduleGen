@@ -11,13 +11,13 @@ namespace Scheduler
 
     {
         //RESOLVED: Make a question list instead with question class.  Refer to line 32 for info.
-        public List<Question> Questions;
+        public List<QuestionCouple> Questions;
         public ScheduleGenerator Scheduler;
 
         public MenuHandler()
         {
             var questionKeeper = new QuestionKeeper();
-            Questions = questionKeeper.QuestionsList;
+            Questions = questionKeeper.QuestionCouples;
         }
 
         public void GreetingPrompt()
@@ -28,10 +28,6 @@ namespace Scheduler
 
         public void Questionairre()
         {
-            //RESOLVED: Add support for timespans in this list, schedulegenerator should have a timespan list.
-            //RESOLVED: Possibly create question class that includes isInt and a questionContent field?
-            //RESOLVED: Remake this method handle a bool "isInt", and convert accordingly before placing in DateTime or TimeSpan
-            //RESOLVED: DO NOT PASS GO if conversion isn't possible.
             var userTimes = new List<DateTime>();
             var userHowLongs = new List<TimeSpan>();
             var i = 0;

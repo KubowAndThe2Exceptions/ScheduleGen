@@ -31,5 +31,9 @@ namespace Scheduler
                 new Question(true, "Please enter how long you eat dinner (hh/mm, military)"))
             };
         }
+        public void Ask(int index, int question)
+        {
+            QuestionCouples[index].Ask(question);
+        }
     }
 }
