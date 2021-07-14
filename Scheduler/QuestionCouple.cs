@@ -18,7 +18,19 @@ namespace Scheduler
         }
         public void Ask(int index)
         {
-            _coupleOfQuestions[index].Ask();
+            _coupleOfQuestions[index].QAsk();
+        }
+        public bool TimeSpanCheck(int index)
+        {
+            return _coupleOfQuestions[index].QTimeSpanCheck();
+        }
+        public TimeSpan ConvertTimeSpan(int index)
+        {
+            return _coupleOfQuestions[index].QConvertTimeSpan();
+        }
+        public DateTime ConvertDateTime(int index)
+        {
+            return _coupleOfQuestions[index].QConvertDateTime();
         }
     }
 }

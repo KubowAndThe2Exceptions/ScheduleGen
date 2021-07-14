@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace Scheduler
 {
-    //RESOLVED: This should receive and distribute info from MenuHandler in form of list
-    //Create logic for calculation
     public class ScheduleGenerator
     {
         private List<DateTime> whenList { get; set; }

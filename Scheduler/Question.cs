@@ -17,9 +17,23 @@ namespace Scheduler
             QuestionContent = questionContent;
         }
 
-        public void Ask()
+        public void QAsk()
         {
             Console.WriteLine(QuestionContent);
+        }
+        public bool QTimeSpanCheck()
+        {
+            return IsTimeSpan;
+        }
+        public TimeSpan QConvertTimeSpan()
+        {
+                var inputHour = Convert.ToInt32(Console.ReadLine());
+                return new TimeSpan(inputHour, 0, 0);
+        }
+        public DateTime QConvertDateTime()
+        {
+                System.DateTime inputTime = DateTime.Parse(Console.ReadLine());
+                return inputTime;
         }
     }
 }

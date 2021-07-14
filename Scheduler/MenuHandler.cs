@@ -28,46 +28,47 @@ namespace Scheduler
 
         public void Questionairre()
         {
+            //Needs to ultimately convert to action object
             var userTimes = new List<DateTime>();
             var userHowLongs = new List<TimeSpan>();
-            var i = 0;
-            while (i < Questions.Count)
+            foreach (var couple in Questions)
             {
-                GreetingPrompt();
-                Console.WriteLine(Questions[i].QuestionContent);
-                if (Questions[i].IsInt)
-                {
-                    try
-                    {
-                        var inputHour = Convert.ToInt32(Console.ReadLine());
-                        userHowLongs.Add(new TimeSpan(inputHour, 0, 0));
-                        i++;
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Incorrect Format, try again. Please enter any input to continue.");
-                        Console.ReadLine();
-                    }
-                }
-                
-                else
-                {
-                    try
-                    {
-                        System.DateTime inputTime = DateTime.Parse(Console.ReadLine());
-                        userTimes.Add(inputTime);
-                        i++;
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Incorrect Format, try again. Please enter any input to continue.");
-                        Console.ReadLine();
-                    }
-                }
 
+                for (var index = 0; index <= 1;)
+                {
+                    couple.Ask(index);
+                    if (couple.TimeSpanCheck(index))
+                    {
+                        try
+                        {
+                            //should have placeholder variable to be added to action object
+                            couple.ConvertTimeSpan(index);
+                            Console.Clear();
+                            index++;
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("incorrect format, try again.");
+                        }
+                    }
+
+                    else
+                    {
+                        try
+                        {
+                            //should have placeholder variable to be added to action object
+                            couple.ConvertDateTime(index);
+                            Console.Clear();
+                            index++;
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("Incorrect Format, try again.");
+                        }
+                    }
+                }
             }
-            Scheduler.SetLists(userTimes, userHowLongs);
-
+            //Scheduler.SetLists(userTimes, userHowLongs);
         }
     }
 }

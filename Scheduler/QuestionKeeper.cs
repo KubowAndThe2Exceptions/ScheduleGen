@@ -35,5 +35,9 @@ namespace Scheduler
         {
             QuestionCouples[index].Ask(question);
         }
+        public bool TimeSpanCheck(int index, int question)
+        {
+            return QuestionCouples[index].TimeSpanCheck(question);
+        }
     }
 }
