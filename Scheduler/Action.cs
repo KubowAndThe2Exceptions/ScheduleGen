@@ -6,8 +6,22 @@ using System.Threading.Tasks;
 
 namespace Scheduler
 {
-    class Action
+    public class Action
     {
+        public DateTime When { get; private set; } = new DateTime();
+        private TimeSpan _howLong { get; set; } = new TimeSpan();
+        public DateTime End { get; private set; } = new DateTime();
 
+        public Action(DateTime when, TimeSpan howLong)
+        {
+            When = when;
+            _howLong = howLong;
+            End = when + howLong;
+        }
+        public Action(DateTime when, DateTime end)
+        {
+            When = when;
+            End = end;
+        }
     }
 }

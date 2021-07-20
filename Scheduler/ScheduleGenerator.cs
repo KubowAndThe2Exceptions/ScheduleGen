@@ -6,19 +6,34 @@ using System.Threading.Tasks;
 
 namespace Scheduler
 {
+    //Needs revamping for handling Action class specifically
     public class ScheduleGenerator
     {
-        private List<DateTime> whenList { get; set; }
-        private List<TimeSpan> howLongList { get; set; }
+        private List<Action> Actions { get; set; } = new List<Action>();
+        
         public ScheduleGenerator()
         {
 
         }
 
-        public void SetLists(List<DateTime> whens, List<TimeSpan> howLongs)
+        //public bool ValidateActionWhen(DateTime When)
+        //{
+        //    //compare to action list, return true/false
+        //}
+
+        //public bool ValidateActionEnd(DateTime End)
+        //{
+        //    //compare to action list, return true/false
+        //}
+
+        public void RegisterAction(Action action)
         {
-            whenList = whens;
-            howLongList = howLongs;
+            Actions.Add(action);
+        }
+
+        private void SortActionList()
+        {
+            //Add implementation
         }
     }
 }
