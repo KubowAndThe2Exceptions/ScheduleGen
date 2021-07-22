@@ -16,24 +16,31 @@ namespace Scheduler
 
         }
 
-        //public bool ValidateActionWhen(DateTime When)
-        //{
-        //    //compare to action list, return true/false
-        //}
+        public bool ValidateDateTime(DateTime dateToCheck)
+        {
+            bool isValid = true;
+            foreach (var action in Actions)
+            {
+                int compareToWhen = action.When.CompareTo(dateToCheck);
+                int compareToEnd = action.End.CompareTo(dateToCheck);
+                if (compareToWhen >= 0 && compareToEnd <= 0)
+                {
+                    isValid = false;
+                    return isValid;
+                }
+                else
+                {
+                    isValid = true;
+                }
+            }
 
-        //public bool ValidateActionEnd(DateTime End)
-        //{
-        //    //compare to action list, return true/false
-        //}
+            return isValid;
+        }
 
         public void RegisterAction(Action action)
         {
             Actions.Add(action);
-        }
-
-        private void SortActionList()
-        {
-            //Add implementation
+            Actions.Sort((x, y) => DateTime.Compare(y.When, x.When));
         }
     }
 }
