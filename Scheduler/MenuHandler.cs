@@ -28,6 +28,76 @@ namespace Scheduler
 
         public void Questionairre()
         {
+            var actionSpan = new TimeSpan();
+            var actionWhen = new DateTime();
+            foreach (var couple in Questions)
+            {
+                actionWhen = DateTime.MinValue;
+                for (var index = 0; index <= 1;)
+                {
+                    couple.Ask(index);
+                    if (couple.TimeSpanCheck(index))
+                    {
+                        try
+                        {
+                            //should have placeholder variable to be added to action object
+                            actionSpan = couple.ConvertTimeSpan(index);
+                            
+                            if (actionWhen != DateTime.MinValue)
+                            {
+                                var endDate = actionWhen + actionSpan;
+                                var validated = Scheduler.ValidateDateTime(endDate);
+                                if (!validated)
+                                {
+                                    throw new Exception("This end time is already taken.");
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    index++;
+                                }
+                            }
+                            
+                            else
+                            {
+                                throw new Exception("Must know when an action happens prior to how long it will take.");
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("incorrect format, try again.");
+                        }
+                    }
+
+                    else
+                    {
+                        try
+                        {
+                            //should have placeholder variable to be added to action object
+                            actionWhen = couple.ConvertDateTime(index);
+                            var validated = Scheduler.ValidateDateTime(actionWhen);
+                            if (!validated)
+                            {
+                                throw new Exception("This end time is already taken, please try again.  Enter anything to continue.");
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                index++;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("Incorrect Format, try again.");
+                        }
+                    }
+                }
+                Scheduler.RegisterAction(new Action(actionWhen, actionSpan));
+            }
+
+
+
+
             //Needs to ultimately convert to action object
             //var userTimes = new List<DateTime>();
             //var userHowLongs = new List<TimeSpan>();
