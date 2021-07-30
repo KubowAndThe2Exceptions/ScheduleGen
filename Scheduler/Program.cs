@@ -16,6 +16,7 @@ namespace Scheduler
             //Enter Mainstay habits/times
             var Menu = new MenuHandler();
             Menu.Questionairre();
+            
         }
     }
 }

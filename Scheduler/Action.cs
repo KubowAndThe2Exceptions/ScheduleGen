@@ -23,5 +23,10 @@ namespace Scheduler
             When = when;
             End = end;
         }
+
+        public void DisplayTime()
+        {
+            Console.WriteLine(this.When.ToShortTimeString());
+        }
     }
 }

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Scheduler
 {
-    //Needs revamping for handling Action class specifically
     public class ScheduleGenerator
     {
         private List<Action> Actions { get; set; } = new List<Action>();
@@ -41,6 +40,15 @@ namespace Scheduler
         {
             Actions.Add(action);
             Actions.Sort((x, y) => DateTime.Compare(y.When, x.When));
+        }
+
+        public void DisplaySchedule()
+        {
+            foreach (var action in Actions)
+            {
+                action.DisplayTime();
+            }
+            Console.ReadLine();
         }
     }
 }
