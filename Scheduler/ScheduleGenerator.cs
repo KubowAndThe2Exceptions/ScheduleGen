@@ -18,24 +18,21 @@ namespace Scheduler
         public bool ValidateDateTime(DateTime dateToCheck)
         {
             bool isValid = true;
-            int timeConflicts = 0;
             foreach (var action in Actions)
             {
                 int compareToWhen = action.When.CompareTo(dateToCheck);
                 int compareToEnd = action.End.CompareTo(dateToCheck);
-                if (compareToWhen <= 0 && compareToEnd >= 0)
+                if (compareToWhen >= 0 && compareToEnd <= 0)
                 {
-                    timeConflicts++;
+                    isValid = false;
+                    return isValid;
                 }
                 else
                 {
-                    continue;
+                    isValid = true;
                 }
             }
-            if (timeConflicts > 0)
-            {
-                isValid = false;
-            }
+
             return isValid;
         }
 
