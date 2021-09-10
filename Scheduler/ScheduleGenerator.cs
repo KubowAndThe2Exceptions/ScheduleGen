@@ -22,7 +22,7 @@ namespace Scheduler
             {
                 int compareToWhen = action.When.CompareTo(dateToCheck);
                 int compareToEnd = action.End.CompareTo(dateToCheck);
-                if (compareToWhen >= 0 && compareToEnd <= 0)
+                if (compareToWhen <= 0 && compareToEnd >= 0)
                 {
                     isValid = false;
                     return isValid;

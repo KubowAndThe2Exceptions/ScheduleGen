@@ -26,7 +26,7 @@ namespace Scheduler
             Console.WriteLine("Welcome to the schedule-maker!\nPlease follow the prompts below.");
         }
 
-        public void Questionairre()
+        public void Questionairre() // --BUG-- conflicting datetime spits out "incorrect format" when it shouldnt.  Fix error somehow
         {
             var actionSpan = new TimeSpan();
             var actionWhen = new DateTime();
