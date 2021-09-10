@@ -42,7 +42,7 @@ namespace Scheduler
             Actions.Sort((x, y) => DateTime.Compare(y.When, x.When));
         }
 
-        public void DisplaySchedule()
+        public void DisplaySchedule() //--FEATURE NEEDED-- Should display all times AND what happens at them.
         {
             foreach (var action in Actions)
             {

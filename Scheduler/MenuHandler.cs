@@ -26,7 +26,7 @@ namespace Scheduler
             Console.WriteLine("Welcome to the schedule-maker!\nPlease follow the prompts below.");
         }
 
-        public void Questionairre() // --BUG-- conflicting datetime spits out "incorrect format" when it shouldnt.  Fix error somehow
+        public void Questionairre() //--FEATURE NEEDED-- Working exceptions at all stages and their sub-stages
         {
             var actionSpan = new TimeSpan();
             var actionWhen = new DateTime();
@@ -41,50 +41,28 @@ namespace Scheduler
                 for (var index = 0; index <= 1;)
                 {
                     couple.Ask(index);
-                    
+
                     //Will check if entry is a timespan or else datetime before sending input to ScheduleGen for validation.
                     //Sends new Action to ScheduleGen each loop through.
                     if (couple.TimeSpanCheck(index) == true)
                     {
                         try
                         {
-                            actionSpan = couple.ConvertTimeSpan(index);
-                            
-                            if (actionWhen != emptyDate)
-                            {
-                                var endDate = actionWhen + actionSpan;
-                                var validated = Scheduler.ValidateDateTime(endDate);
-                                if (!validated)
-                                {
-                                    throw new Exception("This end time is already taken.");
-                                }
-                                else
-                                {
-                                    Console.Clear();
-                                    index++;
-                                }
-                            }
-                            
-                            else
-                            {
-                                throw new Exception("Must know when an action happens prior to how long it will take.");
-                            }
+                            actionSpan = couple.ConvertTimeSpan(index); //--BUG-- accepts an input of "2 d" which it absolutely should NOT. Figure out WHY
                         }
+                        
                         catch (Exception)
                         {
                             Console.WriteLine("incorrect format, try again.");
                         }
-                    }
-
-                    else
-                    {
-                        try
+                       
+                        if (actionWhen != emptyDate)
                         {
-                            actionWhen = couple.ConvertDateTime(index);
-                            var validated = Scheduler.ValidateDateTime(actionWhen);
+                            var endDate = actionWhen + actionSpan;
+                            var validated = Scheduler.ValidateDateTime(endDate);
                             if (!validated)
                             {
-                                throw new Exception("This end time is already taken, please try again.  Enter anything to continue.");
+                                Console.WriteLine("This end time is already taken.");
                             }
                             else
                             {
@@ -92,9 +70,26 @@ namespace Scheduler
                                 index++;
                             }
                         }
-                        catch (Exception)
+
+                        else
                         {
-                            Console.WriteLine("Incorrect Format, try again.");
+                            Console.WriteLine("Must know when an action happens prior to how long it will take.");
+                        }
+                    }
+
+                    else
+                    {
+                        actionWhen = couple.ConvertDateTime(index); //--BUG-- does not catch exceptions.  It should. Is the possible without a try-catch here?
+                        // is it possible with a try-catch in ConvertDateTime? test this.
+                        var validated = Scheduler.ValidateDateTime(actionWhen);
+                        if (!validated)
+                        {
+                            Console.WriteLine("This end time is already taken, please try again.  Enter anything to continue.");
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            index++;
                         }
                     }
                 }
