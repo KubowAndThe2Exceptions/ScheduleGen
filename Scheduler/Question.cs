@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Scheduler
 {
@@ -27,76 +28,55 @@ namespace Scheduler
         }
         public TimeSpan QConvertTimeSpan()
         {
-            int minute = new int();
-            int hour = new int();
-            var mCount = new int();
-            var hCount = new int();
-            bool containsOnce = false;
+            int minute = 0;
+            int hour = 0;
             var timeString = Console.ReadLine().ToLower();
-            var hasInts = timeString.Any(char.IsDigit);
+            var regMatch = false;
+            var formats = new List<Regex>
+            {
+                new Regex(@"\A\d+[h]\s\d+[m]$"),
+                new Regex(@"\A\d+[h]$"),
+                new Regex(@"\A\d+[m]$")
+            };
             
-            //checks if m or h appears in timeString
-            foreach (var letter in timeString)
+            while (!regMatch)
             {
-                if (letter == 'm')
+                foreach (var rx in formats)
                 {
-                    mCount++;
-                }
-                else if (letter == 'h')
-                {
-                    hCount++;
-                }
-            }
-            //checks if contains only once or less in timeString before moving forward, this argument needs expanding for all possible scenarios I think
-            if (mCount <= 1 && hCount <= 1)
-            {
-                containsOnce = true;
-            }
-            else
-            {
-                throw new Exception("Must enter in aformentioned format.");
-            }
-
-            if (containsOnce && hasInts)
-            {
-                try
-                {
-                    //splits into exactly two substrings, then checks if ends with m or h before removing them and converting to int
-                    var timeStringSplits = timeString.Split(new string[] { ", " }, 2, StringSplitOptions.None);
-                    foreach (var split in timeStringSplits)
+                    if (rx.IsMatch(timeString))
                     {
-                        if (split.EndsWith("m"))
-                        {
-                            var mRemoved = split.Remove(split.Length - 1);
-                            var whiteRemoved = mRemoved.Replace(" ", "");
-                            minute = Convert.ToInt32(whiteRemoved);
-
-                        }
-                        else if (split.EndsWith("h"))
-                        {
-                            var hRemoved = split.Remove(split.Length - 1);
-                            var whiteRemoved = hRemoved.Replace(" ", "");
-                            hour = Convert.ToInt32(whiteRemoved);
-                        }
-                        else
-                        {
-                            throw new Exception("Must enter in aformentioned format");
-                        }
+                        regMatch = true;
+                        break;
                     }
                 }
-                catch (Exception)
+                
+                if (!regMatch)
                 {
-
-                    throw new Exception("Must enter in aformentioned format");
+                    return new TimeSpan(0, 0, 0);
                 }
-
-                return new TimeSpan(hour, minute, 0);
             }
-            else
+         
+            //splits into exactly two substrings, then checks if ends with m or h before removing them and converting to int
+            var timeStringSplits = timeString.Split(new string[] { " " }, 2, StringSplitOptions.None);
+            foreach (var split in timeStringSplits)
             {
-                throw new Exception("Must enter in aformentioned format");
+                if (split.EndsWith("m"))
+                {
+                    var mRemoved = split.Remove(split.Length - 1);
+                    var whiteRemoved = mRemoved.Replace(" ", "");
+                    minute = Convert.ToInt32(whiteRemoved);
+
+                }
+                else if (split.EndsWith("h"))
+                {
+                    var hRemoved = split.Remove(split.Length - 1);
+                    var whiteRemoved = hRemoved.Replace(" ", "");
+                    hour = Convert.ToInt32(whiteRemoved);
+                }
             }
+            return new TimeSpan(hour, minute, 0);
         }
+        
         public DateTime QConvertDateTime()
         {
                 System.DateTime inputTime = DateTime.Parse(Console.ReadLine());

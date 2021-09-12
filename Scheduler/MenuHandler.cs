@@ -40,56 +40,66 @@ namespace Scheduler
                 //cycles questions within couples and askes them to User
                 for (var index = 0; index <= 1;)
                 {
-                    couple.Ask(index);
-
-                    //Will check if entry is a timespan or else datetime before sending input to ScheduleGen for validation.
-                    //Sends new Action to ScheduleGen each loop through.
-                    if (couple.TimeSpanCheck(index) == true)
+                    var isAnswered = false;
+                    while (!isAnswered)
                     {
-                        try
+                        couple.Ask(index); //--BUG-- Format is not explained correctly, redesign individual questions.
+
+                        //Will check if entry is a timespan or else datetime before sending input to ScheduleGen for validation.
+                        //Sends new Action to ScheduleGen each loop through.
+                        if (couple.TimeSpanCheck(index) == true)
                         {
-                            actionSpan = couple.ConvertTimeSpan(index); //--BUG-- accepts an input of "2 d" which it absolutely should NOT. Figure out WHY
+                            actionSpan = couple.ConvertTimeSpan(index); //--BUG-- allows for massive numbers of time, inadvertently breaking everything else. Design restrictions
+                            if (actionSpan == TimeSpan.Zero)
+                            {
+                                Console.WriteLine("Incorrect format, please try again.");
+                                continue;
+                            }
+
+                            if (actionWhen != emptyDate)
+                            {
+                                var endDate = actionWhen + actionSpan;
+                                var validated = Scheduler.ValidateDateTime(endDate);
+                                if (!validated)
+                                {
+                                    Console.WriteLine("This timespan conflicts with another timespan."); //--FEATURE-- display a list, highlight conflicting timespan?
+                                    continue;
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    isAnswered = true;
+                                    index++;
+                                }
+                            }
                         }
-                        
-                        catch (Exception)
+
+                        else
                         {
-                            Console.WriteLine("incorrect format, try again.");
-                        }
-                       
-                        if (actionWhen != emptyDate)
-                        {
-                            var endDate = actionWhen + actionSpan;
-                            var validated = Scheduler.ValidateDateTime(endDate);
+                            try
+                            {
+                                actionWhen = couple.ConvertDateTime(index);
+                            }
+                            catch (Exception)
+                            {
+
+                                Console.WriteLine("Incorrect format, please try again.");
+                                continue;
+                            }
+                            
+                            var validated = Scheduler.ValidateDateTime(actionWhen);
+                            
                             if (!validated)
                             {
-                                Console.WriteLine("This end time is already taken.");
+                                Console.WriteLine("This start time is already taken, please try again.  Enter anything to continue.");
+                                continue;
                             }
                             else
                             {
                                 Console.Clear();
+                                isAnswered = true;
                                 index++;
                             }
-                        }
-
-                        else
-                        {
-                            Console.WriteLine("Must know when an action happens prior to how long it will take.");
-                        }
-                    }
-
-                    else
-                    {
-                        actionWhen = couple.ConvertDateTime(index); //--BUG-- does not catch exceptions.  It should. Is the possible without a try-catch here?
-                        // is it possible with a try-catch in ConvertDateTime? test this.
-                        var validated = Scheduler.ValidateDateTime(actionWhen);
-                        if (!validated)
-                        {
-                            Console.WriteLine("This end time is already taken, please try again.  Enter anything to continue.");
-                        }
-                        else
-                        {
-                            Console.Clear();
-                            index++;
                         }
                     }
                 }
