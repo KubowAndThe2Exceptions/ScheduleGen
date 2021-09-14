@@ -41,10 +41,12 @@ namespace Scheduler
                 for (var index = 0; index <= 1;)
                 {
                     var isAnswered = false;
+                    couple.Ask(index);
+                    Console.WriteLine("\r");
+                    Scheduler.DisplaySchedule();
+
                     while (!isAnswered)
                     {
-                        couple.Ask(index);
-
                         //Will check if entry is a timespan or else datetime before sending input to ScheduleGen for validation.
                         //Sends new Action to ScheduleGen each loop through.
                         if (couple.TimeSpanCheck(index) == true)
@@ -61,6 +63,10 @@ namespace Scheduler
                                 var validated = Scheduler.ValidateDateTime(endDate);
                                 if (!validated)
                                 {
+                                    Console.Clear();
+                                    couple.Ask(index);
+                                    Console.WriteLine("\r");
+                                    Scheduler.DisplayScheduleConflict(endDate); //--NEEDS WORK-- This was what you were working on last.
                                     Console.WriteLine("This timespan conflicts with another timespan."); //--FEATURE-- display a list, highlight conflicting timespan?
                                     continue;
                                 }

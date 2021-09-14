@@ -15,19 +15,19 @@ namespace Scheduler
             QuestionCouples = new List<QuestionCouple>
             {
                 new QuestionCouple
-                (new Question(false, "Please enter when you go to bed (ex: hh/mm AM/PM, Military also accepted.)"),
+                (new Question(false, "Please enter when you go to bed (ex: hh:mm AM/PM, Military also accepted.)"),
                 new Question(true, "Please enter how long you sleep (ex: 3h 30m = 3 hours and 30 mins)")),
 
                 new QuestionCouple
-                (new Question(false, "Please enter the time of day you eat breakfast (ex: hh/mm AM/PM, Military also accepted.)"),
+                (new Question(false, "Please enter the time of day you eat breakfast (ex: hh:mm AM/PM, Military also accepted..)"),
                 new Question(true, "Please enter how long you eat breakfast (ex: 3h 30m = 3 hours and 30 mins)")),
 
                 new QuestionCouple
-                (new Question(false, "Please enter the time of day you eat lunch (ex: hh/mm AM/PM, Military also accepted.)"),
+                (new Question(false, "Please enter the time of day you eat lunch (ex: hh:mm AM/PM, Military also accepted.)"),
                 new Question(true, "Please enter how long you eat lunch (ex: 3h 30m = 3 hours and 30 mins)")),
 
                 new QuestionCouple
-                (new Question(false, "Please enter the time of day you eat dinner (ex: hh/mm AM/PM, Military also accepted.)"),
+                (new Question(false, "Please enter the time of day you eat dinner (ex: hh:mm AM/PM, Military also accepted.)"),
                 new Question(true, "Please enter how long you eat dinner (ex: 3h 30m = 3 hours and 30 mins)"))
             };
         }

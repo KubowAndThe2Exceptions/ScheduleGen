@@ -20,9 +20,9 @@ namespace Scheduler
             bool isValid = true;
             foreach (var action in Actions)
             {
-                int compareToWhen = action.When.CompareTo(dateToCheck);
-                int compareToEnd = action.End.CompareTo(dateToCheck);
-                if (compareToWhen <= 0 && compareToEnd >= 0)
+                int comparedWhen = action.When.CompareTo(dateToCheck);
+                int comparedEnd = action.End.CompareTo(dateToCheck);
+                if (comparedWhen <= 0 && comparedEnd >= 0)
                 {
                     isValid = false;
                     return isValid;
@@ -48,7 +48,15 @@ namespace Scheduler
             {
                 action.DisplayTime();
             }
-            Console.ReadLine();
+        }
+        
+        public void DisplayScheduleConflict(DateTime conflictingAction) //--STILL IMPLEMENTING-- Has to somehow check list, find conflict, and then highlight.
+        //--CONT.-- If conflicts with two or more times, highlight all times, change console message appropriately for plural.
+        {
+            foreach (var action in Actions)
+            {
+                action.DisplayTime();
+            }
         }
     }
 }
