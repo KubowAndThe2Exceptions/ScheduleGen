@@ -26,7 +26,7 @@ namespace Scheduler
 
         public void DisplayTime()
         {
-            Console.WriteLine(this.When.ToShortTimeString());
+            Console.WriteLine(this.When.ToShortTimeString() + " - " + this.End.ToShortTimeString());
         }
         
         public void HighlightTime()
@@ -36,8 +36,8 @@ namespace Scheduler
             
             Console.BackgroundColor = ConsoleColor.White;
             Console.ForegroundColor = ConsoleColor.Black;
-            
-            Console.WriteLine(this.When.ToShortTimeString());
+
+            this.DisplayTime();
             
             Console.BackgroundColor = prevBackColor;
             Console.ForegroundColor = prevForeColor;

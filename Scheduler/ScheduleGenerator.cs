@@ -79,12 +79,12 @@ namespace Scheduler
 
             if (Conflicts.Count > 1)
             {
-                Console.WriteLine("Your timespan conflicts with other timespans.");
+                Console.WriteLine("Your time conflicts with other times.");
             }
             
             else
             {
-                Console.WriteLine("Your timespan conflicts with another timespan.");
+                Console.WriteLine("Your time conflicts with another time.");
             }
         }
     }

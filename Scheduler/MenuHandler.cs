@@ -26,7 +26,7 @@ namespace Scheduler
             Console.WriteLine("Welcome to the schedule-maker!\nPlease follow the prompts below.");
         }
 
-        public void Questionairre() //--FEATURE NEEDED-- Working exceptions at all stages and their sub-stages
+        public void Questionairre()
         {
             var actionSpan = new TimeSpan();
             var actionWhen = new DateTime();
@@ -65,8 +65,8 @@ namespace Scheduler
                                 {
                                     Console.Clear();
                                     couple.Ask(index);
+                                    Scheduler.DisplayScheduleConflict(); //--NEEDS FEATURE-- Needs to display time entered as well as conflicts.  This may take a bit of work
                                     Console.WriteLine("\r");
-                                    Scheduler.DisplayScheduleConflict(); //--NEEDS WORK-- This was what you were working on last.
                                     continue;
                                 }
                                 else
@@ -95,7 +95,10 @@ namespace Scheduler
                             
                             if (!validated)
                             {
-                                Console.WriteLine("This start time is already taken, please try again.  Enter anything to continue.");
+                                Console.Clear();
+                                couple.Ask(index);
+                                Scheduler.DisplayScheduleConflict();
+                                Console.WriteLine("\r");
                                 continue;
                             }
                             else
