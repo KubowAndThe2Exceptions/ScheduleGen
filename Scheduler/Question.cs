@@ -52,6 +52,7 @@ namespace Scheduler
                 
                 if (!regMatch)
                 {
+                    Console.WriteLine("Incorrect format, please try again.");
                     return new TimeSpan(0, 0, 0);
                 }
             }
@@ -74,7 +75,16 @@ namespace Scheduler
                     hour = Convert.ToInt32(whiteRemoved);
                 }
             }
-            return new TimeSpan(hour, minute, 0);
+            
+            if (hour >= 23 || minute >= 1380) 
+            {
+                Console.WriteLine("Span of time cannot exceed 23 hours.");
+                return new TimeSpan(0, 0, 0);
+            }
+            else
+            {
+                return new TimeSpan(hour, minute, 0);
+            }
         }
         
         public DateTime QConvertDateTime()

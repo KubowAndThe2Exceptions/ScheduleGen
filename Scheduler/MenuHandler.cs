@@ -43,16 +43,15 @@ namespace Scheduler
                     var isAnswered = false;
                     while (!isAnswered)
                     {
-                        couple.Ask(index); //--BUG-- Format is not explained correctly, redesign individual questions.
+                        couple.Ask(index);
 
                         //Will check if entry is a timespan or else datetime before sending input to ScheduleGen for validation.
                         //Sends new Action to ScheduleGen each loop through.
                         if (couple.TimeSpanCheck(index) == true)
                         {
-                            actionSpan = couple.ConvertTimeSpan(index); //--BUG-- allows for massive numbers of time, inadvertently breaking everything else. Design restrictions
+                            actionSpan = couple.ConvertTimeSpan(index);
                             if (actionSpan == TimeSpan.Zero)
                             {
-                                Console.WriteLine("Incorrect format, please try again.");
                                 continue;
                             }
 
