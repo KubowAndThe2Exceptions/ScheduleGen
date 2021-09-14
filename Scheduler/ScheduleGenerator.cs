@@ -58,8 +58,7 @@ namespace Scheduler
             }
         }
         
-        public void DisplayScheduleConflict() //--STILL IMPLEMENTING-- Has to somehow check list, find conflict, and then highlight.
-        //--CONT.-- If conflicts with two or more times, highlight all times, change console message appropriately for plural.
+        public void DisplayScheduleConflict(string lastInput)
         {
             foreach (var action in Actions)
             {
@@ -79,12 +78,12 @@ namespace Scheduler
 
             if (Conflicts.Count > 1)
             {
-                Console.WriteLine("Your time conflicts with other times.");
+                Console.WriteLine("Your time \"{0}\" conflicts with other times.", lastInput);
             }
             
             else
             {
-                Console.WriteLine("Your time conflicts with another time.");
+                Console.WriteLine("Your time \"{0}\" conflicts with another time.", lastInput);
             }
         }
     }

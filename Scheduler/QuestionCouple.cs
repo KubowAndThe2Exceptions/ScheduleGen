@@ -24,13 +24,13 @@ namespace Scheduler
         {
             return _coupleOfQuestions[index].QTimeSpanCheck();
         }
-        public TimeSpan ConvertTimeSpan(int index)
+        public TimeSpan ConvertTimeSpan(int index, string input)
         {
-            return _coupleOfQuestions[index].QConvertTimeSpan();
+            return _coupleOfQuestions[index].QConvertTimeSpan(input);
         }
-        public DateTime ConvertDateTime(int index)
+        public DateTime ConvertDateTime(int index, string input)
         {
-            return _coupleOfQuestions[index].QConvertDateTime();
+            return _coupleOfQuestions[index].QConvertDateTime(input);
         }
     }
 }

@@ -26,11 +26,11 @@ namespace Scheduler
         {
             return IsTimeSpan;
         }
-        public TimeSpan QConvertTimeSpan()
+        public TimeSpan QConvertTimeSpan(string input)
         {
             int minute = 0;
             int hour = 0;
-            var timeString = Console.ReadLine().ToLower();
+            var timeString = input.ToLower();
             var regMatch = false;
             var formats = new List<Regex>
             {
@@ -87,9 +87,9 @@ namespace Scheduler
             }
         }
         
-        public DateTime QConvertDateTime()
+        public DateTime QConvertDateTime(string input)
         {
-                System.DateTime inputTime = DateTime.Parse(Console.ReadLine());
+                System.DateTime inputTime = DateTime.Parse(input);
                 return inputTime;
         }
     }

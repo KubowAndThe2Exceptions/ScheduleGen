@@ -13,6 +13,7 @@ namespace Scheduler
         //should rename Questions to QuestionCouples
         public List<QuestionCouple> Questions;
         public ScheduleGenerator Scheduler = new ScheduleGenerator();
+        public string LastInput = string.Empty;
 
         public MenuHandler()
         {
@@ -51,7 +52,8 @@ namespace Scheduler
                         //Sends new Action to ScheduleGen each loop through.
                         if (couple.TimeSpanCheck(index) == true)
                         {
-                            actionSpan = couple.ConvertTimeSpan(index);
+                            LastInput = Console.ReadLine();
+                            actionSpan = couple.ConvertTimeSpan(index, LastInput);
                             if (actionSpan == TimeSpan.Zero)
                             {
                                 continue;
@@ -65,7 +67,7 @@ namespace Scheduler
                                 {
                                     Console.Clear();
                                     couple.Ask(index);
-                                    Scheduler.DisplayScheduleConflict(); //--NEEDS FEATURE-- Needs to display time entered as well as conflicts.  This may take a bit of work
+                                    Scheduler.DisplayScheduleConflict(LastInput); //--BUG ASSOCIATED-- check phone.  This one is wild
                                     Console.WriteLine("\r");
                                     continue;
                                 }
@@ -82,11 +84,11 @@ namespace Scheduler
                         {
                             try
                             {
-                                actionWhen = couple.ConvertDateTime(index);
+                                LastInput = Console.ReadLine();
+                                actionWhen = couple.ConvertDateTime(index, LastInput);
                             }
                             catch (Exception)
                             {
-
                                 Console.WriteLine("Incorrect format, please try again.");
                                 continue;
                             }
@@ -97,7 +99,7 @@ namespace Scheduler
                             {
                                 Console.Clear();
                                 couple.Ask(index);
-                                Scheduler.DisplayScheduleConflict();
+                                Scheduler.DisplayScheduleConflict(LastInput);
                                 Console.WriteLine("\r");
                                 continue;
                             }
