@@ -42,8 +42,8 @@ namespace Scheduler
                 {
                     var isAnswered = false;
                     couple.Ask(index);
-                    Console.WriteLine("\r");
                     Scheduler.DisplaySchedule();
+                    Console.WriteLine("\r");
 
                     while (!isAnswered)
                     {
@@ -66,8 +66,7 @@ namespace Scheduler
                                     Console.Clear();
                                     couple.Ask(index);
                                     Console.WriteLine("\r");
-                                    Scheduler.DisplayScheduleConflict(endDate); //--NEEDS WORK-- This was what you were working on last.
-                                    Console.WriteLine("This timespan conflicts with another timespan."); //--FEATURE-- display a list, highlight conflicting timespan?
+                                    Scheduler.DisplayScheduleConflict(); //--NEEDS WORK-- This was what you were working on last.
                                     continue;
                                 }
                                 else

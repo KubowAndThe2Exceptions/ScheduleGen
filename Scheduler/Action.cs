@@ -28,5 +28,19 @@ namespace Scheduler
         {
             Console.WriteLine(this.When.ToShortTimeString());
         }
+        
+        public void HighlightTime()
+        {
+            var prevBackColor = Console.BackgroundColor;
+            var prevForeColor = Console.ForegroundColor;
+            
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            
+            Console.WriteLine(this.When.ToShortTimeString());
+            
+            Console.BackgroundColor = prevBackColor;
+            Console.ForegroundColor = prevForeColor;
+        }
     }
 }

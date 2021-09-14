@@ -9,6 +9,7 @@ namespace Scheduler
     public class ScheduleGenerator
     {
         private List<Action> Actions { get; set; } = new List<Action>();
+        private List<Action> Conflicts { get; set; } = new List<Action>();
         
         public ScheduleGenerator()
         {
@@ -17,23 +18,30 @@ namespace Scheduler
 
         public bool ValidateDateTime(DateTime dateToCheck)
         {
+            Conflicts.Clear();
             bool isValid = true;
+            List<DateTime> conflicts = new List<DateTime>();
+
             foreach (var action in Actions)
             {
                 int comparedWhen = action.When.CompareTo(dateToCheck);
                 int comparedEnd = action.End.CompareTo(dateToCheck);
                 if (comparedWhen <= 0 && comparedEnd >= 0)
                 {
-                    isValid = false;
-                    return isValid;
-                }
-                else
-                {
-                    isValid = true;
+                    Conflicts.Add(action);
+                    continue;
                 }
             }
 
-            return isValid;
+            if (Conflicts.Count > 0)
+            {
+                isValid = false;
+                return isValid;
+            }
+            else
+            {
+                return isValid;
+            }
         }
 
         public void RegisterAction(Action action)
@@ -50,12 +58,33 @@ namespace Scheduler
             }
         }
         
-        public void DisplayScheduleConflict(DateTime conflictingAction) //--STILL IMPLEMENTING-- Has to somehow check list, find conflict, and then highlight.
+        public void DisplayScheduleConflict() //--STILL IMPLEMENTING-- Has to somehow check list, find conflict, and then highlight.
         //--CONT.-- If conflicts with two or more times, highlight all times, change console message appropriately for plural.
         {
             foreach (var action in Actions)
             {
-                action.DisplayTime();
+                foreach (var conflict in Conflicts)
+                {
+                    if (action == conflict)
+                    {
+                        action.HighlightTime();
+                        continue;
+                    }
+                    else
+                    {
+                        action.DisplayTime();
+                    }
+                }
+            }
+
+            if (Conflicts.Count > 1)
+            {
+                Console.WriteLine("Your timespan conflicts with other timespans.");
+            }
+            
+            else
+            {
+                Console.WriteLine("Your timespan conflicts with another timespan.");
             }
         }
     }
