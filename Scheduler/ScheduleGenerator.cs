@@ -10,13 +10,15 @@ namespace Scheduler
     {
         private List<Action> Actions { get; set; } = new List<Action>();
         private List<Action> Conflicts { get; set; } = new List<Action>();
+
+        private DateTime HeldWhen { get; set; }
         
         public ScheduleGenerator()
         {
 
         }
 
-        public bool ValidateDateTime(DateTime dateToCheck)
+        public bool ValidateSpan(DateTime dateToCheck)
         {
             Conflicts.Clear();
             bool isValid = true;
@@ -24,9 +26,9 @@ namespace Scheduler
 
             foreach (var action in Actions)
             {
-                int comparedWhen = action.When.CompareTo(dateToCheck);
-                int comparedEnd = action.End.CompareTo(dateToCheck);
-                if (comparedWhen <= 0 && comparedEnd >= 0)
+                int comparedWhen = action.When.CompareTo(HeldWhen); 
+                int comparedWtoE = action.When.CompareTo(dateToCheck);
+                if (comparedWhen >= 0 && comparedWtoE <= 0)
                 {
                     Conflicts.Add(action);
                     continue;
@@ -42,6 +44,36 @@ namespace Scheduler
             {
                 return isValid;
             }
+
+        }
+
+        public bool ValidateDateTime(DateTime dateToCheck)
+        {
+            Conflicts.Clear();
+            bool isValid = true;
+            List<DateTime> conflicts = new List<DateTime>();
+
+            foreach (var action in Actions)
+            {
+                int comparedWtoW = action.When.CompareTo(dateToCheck);
+                int comparedEtoE = action.End.CompareTo(dateToCheck);
+                if (comparedWtoW <= 0 && comparedEtoE >= 0)
+                {
+                    Conflicts.Add(action);
+                    continue;
+                }
+            }
+
+            if (Conflicts.Count > 0)
+            {
+                isValid = false;
+                return isValid;
+            }
+            else
+            {
+                HeldWhen = dateToCheck;
+                return isValid;
+            }
         }
 
         public void RegisterAction(Action action)
@@ -50,7 +82,7 @@ namespace Scheduler
             Actions.Sort((x, y) => DateTime.Compare(y.When, x.When));
         }
 
-        public void DisplaySchedule() //--FEATURE NEEDED-- Should display all times AND what happens at them.
+        public void DisplaySchedule()
         {
             foreach (var action in Actions)
             {
@@ -60,19 +92,27 @@ namespace Scheduler
         
         public void DisplayScheduleConflict(string lastInput)
         {
-            foreach (var action in Actions)
+            bool isConflict;
+            for (var actionNum = Actions.Count - 1; actionNum > -1; actionNum--)
             {
+                isConflict = false;
+
                 foreach (var conflict in Conflicts)
                 {
-                    if (action == conflict)
+                    if (Actions[actionNum] == conflict)
                     {
-                        action.HighlightTime();
-                        continue;
+                        isConflict = true;
+                        break;
                     }
-                    else
-                    {
-                        action.DisplayTime();
-                    }
+                }
+                
+                if (isConflict == true)
+                {
+                    Actions[actionNum].HighlightTime();
+                }
+                else
+                {
+                    Actions[actionNum].DisplayTime();
                 }
             }
 

@@ -13,7 +13,7 @@ namespace Scheduler
         //should rename Questions to QuestionCouples
         public List<QuestionCouple> Questions;
         public ScheduleGenerator Scheduler = new ScheduleGenerator();
-        public string LastInput = string.Empty;
+        public string LastInput = string.Empty; //--FEATURE-- Find a way to store start to end time, I dont know where, but figure this out.
 
         public MenuHandler()
         {
@@ -62,7 +62,7 @@ namespace Scheduler
                             if (actionWhen != emptyDate)
                             {
                                 var endDate = actionWhen + actionSpan;
-                                var validated = Scheduler.ValidateDateTime(endDate);
+                                var validated = Scheduler.ValidateSpan(endDate);
                                 if (!validated)
                                 {
                                     Console.Clear();
