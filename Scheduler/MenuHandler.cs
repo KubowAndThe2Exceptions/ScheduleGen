@@ -13,7 +13,7 @@ namespace Scheduler
         //should rename Questions to QuestionCouples
         public List<QuestionCouple> Questions;
         public ScheduleGenerator Scheduler = new ScheduleGenerator();
-        public string LastInput = string.Empty; //--FEATURE-- Find a way to store start to end time, I dont know where, but figure this out.
+        public string LastInput = string.Empty;
 
         public MenuHandler()
         {
@@ -67,7 +67,7 @@ namespace Scheduler
                                 {
                                     Console.Clear();
                                     couple.Ask(index);
-                                    Scheduler.DisplayScheduleConflict(LastInput); //--BUG ASSOCIATED-- check phone.  This one is wild
+                                    Scheduler.DisplayScheduleConflict(LastInput);
                                     Console.WriteLine("\r");
                                     continue;
                                 }

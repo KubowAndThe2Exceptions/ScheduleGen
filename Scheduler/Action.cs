@@ -23,10 +23,60 @@ namespace Scheduler
             When = when;
             End = end;
         }
+        public Action(DateTime when)
+        {
+            When = when;
+            End = DateTime.MinValue;
+        }
+
+        public void SetWhen(DateTime when)
+        {
+            When = when;
+        }
+
+        public void SetEnd(DateTime end)
+        {
+            End = end;
+        }
+
+        public bool HasWhen()
+        {
+            if (this.When != DateTime.MinValue)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool HasEnd()
+        {
+            if (this.End != DateTime.MinValue)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public void DisplayTime()
         {
-            Console.WriteLine(this.When.ToShortTimeString() + " - " + this.End.ToShortTimeString());
+            if (this.HasWhen() && this.HasEnd())
+            {
+                Console.WriteLine(this.When.ToShortTimeString() + " - " + this.End.ToShortTimeString());
+            }
+            else if (this.HasWhen() && !this.HasEnd())
+            {
+                Console.WriteLine(this.When.ToShortTimeString() + " - 00:00");
+            }
+            else
+            {
+                Console.WriteLine("00:00 - 00:00");
+            }
         }
         
         public void HighlightTime()

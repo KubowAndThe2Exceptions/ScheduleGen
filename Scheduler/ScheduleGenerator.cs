@@ -11,14 +11,14 @@ namespace Scheduler
         private List<Action> Actions { get; set; } = new List<Action>();
         private List<Action> Conflicts { get; set; } = new List<Action>();
 
-        private DateTime HeldWhen { get; set; }
+        private Action HeldAction { get; set; }
         
         public ScheduleGenerator()
         {
 
         }
 
-        public bool ValidateSpan(DateTime dateToCheck)
+        public bool ValidateSpan(DateTime dateToCheck) 
         {
             Conflicts.Clear();
             bool isValid = true;
@@ -26,7 +26,7 @@ namespace Scheduler
 
             foreach (var action in Actions)
             {
-                int comparedWhen = action.When.CompareTo(HeldWhen); 
+                int comparedWhen = action.When.CompareTo(HeldAction.When); 
                 int comparedWtoE = action.When.CompareTo(dateToCheck);
                 if (comparedWhen >= 0 && comparedWtoE <= 0)
                 {
@@ -42,6 +42,7 @@ namespace Scheduler
             }
             else
             {
+
                 return isValid;
             }
 
@@ -71,7 +72,7 @@ namespace Scheduler
             }
             else
             {
-                HeldWhen = dateToCheck;
+                HeldAction.SetWhen(dateToCheck);
                 return isValid;
             }
         }
@@ -80,6 +81,9 @@ namespace Scheduler
         {
             Actions.Add(action);
             Actions.Sort((x, y) => DateTime.Compare(y.When, x.When));
+            
+            HeldAction.SetEnd(DateTime.MinValue);
+            HeldAction.SetWhen(DateTime.MinValue);
         }
 
         public void DisplaySchedule()
@@ -88,6 +92,8 @@ namespace Scheduler
             {
                 action.DisplayTime();
             }
+
+            HeldAction.DisplayTime();
         }
         
         public void DisplayScheduleConflict(string lastInput)
@@ -115,6 +121,7 @@ namespace Scheduler
                     Actions[actionNum].DisplayTime();
                 }
             }
+            HeldAction.DisplayTime();
 
             if (Conflicts.Count > 1)
             {
