@@ -26,8 +26,14 @@ namespace Scheduler
             Console.Clear();
             Console.WriteLine("Welcome to the schedule-maker!\nPlease follow the prompts below.");
         }
+        public void TasksCollector() //--FEATURE(S)-- Create prompt for collecting tasks.  Should have string list of tasks which gets passed to QK.
+            //QK should process string list into list of questions, then automatedly turn questions into questioncouples and place into its list.
+            //--FEATURE-- Should be able to enter "fin" for finishing adding prompts.
+        {
+            Console.WriteLine("Please name tasks you would like to schedule.  Type \"fin\" when you are finished.");
+        }
 
-        public void Questionairre()
+        public void Questionairre() //--FEATURE-- Optionally print schedule to .txt file when finished? Possibly create data base with string values for tasks? 
         {
             var actionSpan = new TimeSpan();
             var actionWhen = new DateTime();
