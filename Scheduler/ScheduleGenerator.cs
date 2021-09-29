@@ -11,7 +11,7 @@ namespace Scheduler
         private List<Action> Actions { get; set; } = new List<Action>();
         private List<Action> Conflicts { get; set; } = new List<Action>();
 
-        private Action HeldAction { get; set; }
+        private Action HeldAction { get; set; } = new Action(DateTime.MinValue, DateTime.MinValue);
         
         public ScheduleGenerator()
         {
@@ -92,7 +92,7 @@ namespace Scheduler
             {
                 action.DisplayTime();
             }
-
+            Console.WriteLine();
             HeldAction.DisplayTime();
         }
         
@@ -121,6 +121,7 @@ namespace Scheduler
                     Actions[actionNum].DisplayTime();
                 }
             }
+            Console.WriteLine();
             HeldAction.DisplayTime();
 
             if (Conflicts.Count > 1)
