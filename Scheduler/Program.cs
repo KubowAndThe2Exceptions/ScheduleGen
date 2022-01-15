@@ -10,10 +10,6 @@ namespace Scheduler
     {
         static void Main(string[] args)
         {
-            //Pseudo concept:
-            //Enter sleep/eating times.
-            //Enter activities
-            //Enter Mainstay habits/times
             var Menu = new MenuHandler();
             Menu.Questionairre();
             

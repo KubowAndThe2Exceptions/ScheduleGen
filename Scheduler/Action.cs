@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace Scheduler
 {
+    //Class used to represent a span of time with a start and end TimeSpan.  Is stored within a list in ScheduleGen.
     public class Action
     {
         public DateTime When { get; private set; } = new DateTime();
         private TimeSpan _howLong { get; set; } = new TimeSpan();
         public DateTime End { get; private set; } = new DateTime();
 
+        //Constructors
         public Action(DateTime when, TimeSpan howLong)
         {
             When = when;
@@ -29,6 +31,7 @@ namespace Scheduler
             End = DateTime.MinValue;
         }
 
+        //Attribute Access Methods
         public void SetWhen(DateTime when)
         {
             When = when;
@@ -39,6 +42,7 @@ namespace Scheduler
             End = end;
         }
 
+        //Checks if this has a start time set yet
         public bool HasWhen()
         {
             if (this.When != DateTime.MinValue)
@@ -50,7 +54,7 @@ namespace Scheduler
                 return false;
             }
         }
-
+        //Checks if this has an end time set yet
         public bool HasEnd()
         {
             if (this.End != DateTime.MinValue)
@@ -63,6 +67,7 @@ namespace Scheduler
             }
         }
 
+        //Displays start and end time of this Action object
         public void DisplayTime()
         {
             if (this.HasWhen() && this.HasEnd())
@@ -79,6 +84,8 @@ namespace Scheduler
             }
         }
         
+        //NOTE: May be better to store in attributes somehow? Maybe with Enums?
+        //Highlight format for highlighting.
         public void HighlightTime()
         {
             var prevBackColor = Console.BackgroundColor;

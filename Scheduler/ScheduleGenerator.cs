@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Scheduler
 {
+    //Handles the majority of sorting and conflicts with Action creation and Action setting
     public class ScheduleGenerator
     {
         private List<Action> Actions { get; set; } = new List<Action>();
@@ -18,11 +19,12 @@ namespace Scheduler
 
         }
 
+        //Checks list of DateTime input against list of Actions and HeldAction for conflicts
         public bool ValidateSpan(DateTime dateToCheck) 
         {
             Conflicts.Clear();
             bool isValid = true;
-            List<DateTime> conflicts = new List<DateTime>();
+            List<DateTime> conflicts = new List<DateTime>(); // < List never used, remove.
 
             foreach (var action in Actions)
             {
@@ -48,6 +50,7 @@ namespace Scheduler
 
         }
 
+        //Functionally the same as ValidateSpan, but sets first half of HeldAction
         public bool ValidateDateTime(DateTime dateToCheck)
         {
             Conflicts.Clear();
@@ -77,6 +80,7 @@ namespace Scheduler
             }
         }
 
+        //Registers an action and sorts all actions based on when they start
         public void RegisterAction(Action action)
         {
             Actions.Add(action);
@@ -86,6 +90,7 @@ namespace Scheduler
             HeldAction.SetWhen(DateTime.MinValue);
         }
 
+        //Displays Actions, as well as the HeldAction left to be completed by user
         public void DisplaySchedule()
         {
             foreach (var action in Actions)
@@ -96,6 +101,7 @@ namespace Scheduler
             HeldAction.DisplayTime();
         }
         
+        //Displays Actions and highlights conflicts.
         public void DisplayScheduleConflict(string lastInput)
         {
             bool isConflict;

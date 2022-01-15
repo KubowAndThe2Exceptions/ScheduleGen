@@ -18,14 +18,19 @@ namespace Scheduler
             QuestionContent = questionContent;
         }
 
+        //Displays the Question to the user
         public void QAsk()
         {
             Console.WriteLine(QuestionContent);
         }
+        
+        //Question identifies whether or not it requires a TimeSpan
         public bool QTimeSpanCheck()
         {
             return IsTimeSpan;
         }
+        
+        //Converts string input into a Timespan
         public TimeSpan QConvertTimeSpan(string input)
         {
             int minute = 0;
@@ -39,6 +44,7 @@ namespace Scheduler
                 new Regex(@"\A\d+[m]$")
             };
             
+            //Checks for regex match.  NOTE: Consider whether or not "while" loop is necessary.  "if" logic is probably all I need.
             while (!regMatch)
             {
                 foreach (var rx in formats)
@@ -57,7 +63,7 @@ namespace Scheduler
                 }
             }
          
-            //splits into exactly two substrings, then checks if ends with m or h before removing them and converting to int
+            //splits into exactly two substrings, then checks if ends with m (for minutes) or h (for hours) before removing them and converting remaining numbers to int
             var timeStringSplits = timeString.Split(new string[] { " " }, 2, StringSplitOptions.None);
             foreach (var split in timeStringSplits)
             {
@@ -87,6 +93,7 @@ namespace Scheduler
             }
         }
         
+        //Converts string to DateTime and returns it
         public DateTime QConvertDateTime(string input)
         {
                 System.DateTime inputTime = DateTime.Parse(input);
