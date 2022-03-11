@@ -29,92 +29,108 @@ namespace Scheduler
 
         public void Questionairre()
         {
-            var actionSpan = new TimeSpan();
-            var actionWhen = new DateTime();
-            var emptyDate = DateTime.MinValue;
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            //var actionSpan = new TimeSpan();
+            //var actionWhen = new DateTime();
+            //var emptyDate = DateTime.MinValue;
 
-            //Cycles through couples
-            foreach (var couple in Questions)
-            {
-                actionWhen = emptyDate;
+            ////Cycles through couples
+            //foreach (var couple in Questions)
+            //{
+            //    actionWhen = emptyDate;
                 
-                //cycles questions within couples and askes them to User
-                for (var index = 0; index <= 1;)
-                {
-                    var isAnswered = false;
-                    couple.Ask(index);
-                    Scheduler.DisplaySchedule();
-                    Console.WriteLine("\r");
+            //    //cycles questions within couples and askes them to User
+            //    for (var index = 0; index <= 1;)
+            //    {
+            //        var isAnswered = false;
+            //        couple.Ask(index);
+            //        Scheduler.DisplaySchedule();
+            //        Console.WriteLine("\r");
 
-                    while (!isAnswered)
-                    {
-                        //Will check if entry is a timespan or else datetime before sending input to ScheduleGen for validation.
-                        //Sends new Action to ScheduleGen each loop through.
-                        if (couple.TimeSpanCheck(index) == true)
-                        {
-                            LastInput = Console.ReadLine();
-                            actionSpan = couple.ConvertTimeSpan(index, LastInput);
-                            if (actionSpan == TimeSpan.Zero)
-                            {
-                                continue;
-                            }
+            //        while (!isAnswered)
+            //        {
+            //            //Will check if entry is a timespan or else datetime before sending input to ScheduleGen for validation.
+            //            //Sends new Action to ScheduleGen each loop through.
+            //            if (couple.TimeSpanCheck(index) == true)
+            //            {
+            //                LastInput = Console.ReadLine();
+            //                actionSpan = couple.ConvertTimeSpan(index, LastInput);
+            //                if (actionSpan == TimeSpan.Zero)
+            //                {
+            //                    continue;
+            //                }
 
-                            if (actionWhen != emptyDate)
-                            {
-                                var endDate = actionWhen + actionSpan;
-                                var validated = Scheduler.ValidateSpan(endDate);
-                                if (!validated)
-                                {
-                                    Console.Clear();
-                                    couple.Ask(index);
-                                    Scheduler.DisplayScheduleConflict(LastInput);
-                                    Console.WriteLine("\r");
-                                    continue;
-                                }
-                                else
-                                {
-                                    Console.Clear();
-                                    isAnswered = true;
-                                    index++;
-                                }
-                            }
-                        }
+            //                if (actionWhen != emptyDate)
+            //                {
+            //                    var endDate = actionWhen + actionSpan;
+            //                    var validated = Scheduler.ValidateSpan(endDate);
+            //                    if (!validated)
+            //                    {
+            //                        Console.Clear();
+            //                        couple.Ask(index);
+            //                        Scheduler.DisplayScheduleConflict(LastInput);
+            //                        Console.WriteLine("\r");
+            //                        continue;
+            //                    }
+            //                    else
+            //                    {
+            //                        Console.Clear();
+            //                        isAnswered = true;
+            //                        index++;
+            //                    }
+            //                }
+            //            }
 
-                        else
-                        {
-                            try
-                            {
-                                LastInput = Console.ReadLine();
-                                actionWhen = couple.ConvertDateTime(index, LastInput);
-                            }
-                            catch (Exception)
-                            {
-                                Console.WriteLine("Incorrect format, please try again.");
-                                continue;
-                            }
+            //            else
+            //            {
+            //                try
+            //                {
+            //                    LastInput = Console.ReadLine();
+            //                    actionWhen = couple.ConvertDateTime(index, LastInput);
+            //                }
+            //                catch (Exception)
+            //                {
+            //                    Console.WriteLine("Incorrect format, please try again.");
+            //                    continue;
+            //                }
                             
-                            var validated = Scheduler.ValidateDateTime(actionWhen);
+            //                var validated = Scheduler.ValidateDateTime(actionWhen);
                             
-                            if (!validated)
-                            {
-                                Console.Clear();
-                                couple.Ask(index);
-                                Scheduler.DisplayScheduleConflict(LastInput);
-                                Console.WriteLine("\r");
-                                continue;
-                            }
-                            else
-                            {
-                                Console.Clear();
-                                isAnswered = true;
-                                index++;
-                            }
-                        }
-                    }
-                }
-                Scheduler.RegisterAction(new Action(actionWhen, actionSpan));
-            }
-            Scheduler.DisplaySchedule();
+            //                if (!validated)
+            //                {
+            //                    Console.Clear();
+            //                    couple.Ask(index);
+            //                    Scheduler.DisplayScheduleConflict(LastInput);
+            //                    Console.WriteLine("\r");
+            //                    continue;
+            //                }
+            //                else
+            //                {
+            //                    Console.Clear();
+            //                    isAnswered = true;
+            //                    index++;
+            //                }
+            //            }
+            //        }
+            //    }
+            //    Scheduler.RegisterAction(new Action(actionWhen, actionSpan));
+            //}
+            //Scheduler.DisplaySchedule();
         }
     }
 }

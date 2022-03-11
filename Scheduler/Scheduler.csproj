@@ -43,7 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Action.cs" />
+    <Compile Include="Actions\Action.cs" />
+    <Compile Include="Actions\Meal.cs" />
     <Compile Include="MenuHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,6 +52,8 @@
     <Compile Include="QuestionCouple.cs" />
     <Compile Include="QuestionKeeper.cs" />
     <Compile Include="ScheduleGenerator.cs" />
+    <Compile Include="Actions\Sleep.cs" />
+    <Compile Include="Actions\Work.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
